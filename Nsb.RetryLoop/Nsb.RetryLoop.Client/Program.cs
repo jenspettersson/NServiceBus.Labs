@@ -9,7 +9,7 @@ namespace Nsb.RetryLoop.Client
     class ApplicationConstants
     {
         public static string EndpointName = "LAB.Endpoint";
-        public static string ErrorQueue = "LAB.Endpoint";
+        public static string ErrorQueue = "LAB.Endpoint.Error";
         public static string LegacyQueue = "LAB.LegacyQueue";
     }
 
@@ -38,7 +38,7 @@ namespace Nsb.RetryLoop.Client
             public async Task<IEndpointInstance> Start()
             {
                 var endpointConfiguration = new EndpointConfiguration("LAB.Endpoint");
-                endpointConfiguration.SendFailedMessagesTo("accommodations.error");
+                endpointConfiguration.SendFailedMessagesTo(ApplicationConstants.ErrorQueue);
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
                 endpointConfiguration.EnableInstallers();
                 endpointConfiguration.UseSerialization<JsonSerializer>();
